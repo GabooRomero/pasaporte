@@ -41,7 +41,8 @@
   "overrides": {
     "react-leaflet-heatmap-layer-v3": {
       "react": "$react",
-      "react-dom": "$react-dom"
+      "react-dom": "$react-dom",
+      "react-leaflet": "$react-leaflet"
     }
   }
 }
