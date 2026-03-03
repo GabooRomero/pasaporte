@@ -209,9 +209,6 @@ export default function AdminDashboard() {
                     <h1 className="text-xl font-bold">Panel de Gobierno</h1>
                 </div>
                 <div className="flex items-center gap-4">
-                    <Button variant="outline" size="sm" onClick={() => router.push('/admin/geo')} className="text-purple-400 border-purple-800 bg-purple-900/20 hover:bg-purple-900/40 hover:text-white hidden sm:flex">
-                        <Map className="h-4 w-4 mr-2" /> Módulo Geoespacial
-                    </Button>
                     <span className="text-sm text-gray-400 hidden md:inline">{user?.email || 'Administrador'}</span>
                     <Button variant="ghost" size="sm" onClick={() => { logout(); router.push('/'); }} className="text-gray-400 hover:text-white">
                         <LogOut className="h-4 w-4 mr-2" /> Salir
