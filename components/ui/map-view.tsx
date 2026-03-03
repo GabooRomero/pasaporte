@@ -1,5 +1,5 @@
 "use client"
-import { MapContainer, TileLayer } from 'react-leaflet'
+import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet'
 import { HeatmapLayer } from 'react-leaflet-heatmap-layer-v3'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
@@ -27,8 +27,8 @@ export default function AttractionsMap({ attractions, scanCounts = {} }: { attra
             />
             {heatmapData.length > 0 && (
                 <HeatmapLayer
-                    fitBoundsOnLoad
-                    fitBoundsOnUpdate
+                    fitBoundsOnLoad={false}
+                    fitBoundsOnUpdate={false}
                     points={heatmapData}
                     longitudeExtractor={(m: any) => m[1]}
                     latitudeExtractor={(m: any) => m[0]}
@@ -38,6 +38,23 @@ export default function AttractionsMap({ attractions, scanCounts = {} }: { attra
                     max={20}
                 />
             )}
+
+            {/* Capa Base de Marcadores para Atracciones sin escaneos / Bajo Contraste */}
+            {attractions.filter(attr => attr.latitude && attr.longitude).map((attr) => (
+                <CircleMarker
+                    key={attr.id}
+                    center={[parseFloat(attr.latitude), parseFloat(attr.longitude)]}
+                    radius={6}
+                    pathOptions={{ color: '#4F46E5', fillColor: '#4F46E5', fillOpacity: 0.9, weight: 2 }}
+                >
+                    <Popup>
+                        <div className="font-semibold text-slate-900 text-sm">{attr.name}</div>
+                        <div className="text-xs text-slate-600 mt-1">
+                            Interacciones On-Chain: <span className="font-bold">{scanCounts[attr.id] || 0}</span>
+                        </div>
+                    </Popup>
+                </CircleMarker>
+            ))}
         </MapContainer>
     )
 }
